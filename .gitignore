@@ -348,3 +348,23 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Accounting/.vscode
+/Accounting/Accounting.Client/Properties
+/Accounting/Accounting.Client
+/Accounting/Accounting.Web/Client/Properties
+/Accounting/Accounting.Web/Client/wwwroot/appsettings.json
+/Accounting/Accounting.Web/Server/Properties/launchSettings.json
+/Accounting/Accounting.Web/Server/appsettings.json
+/Accounting/Accounting.Web/Server/appsettings.Development.json
+/Accounting/Bom.Archive/wwwroot/exampleJsInterop.js
+/Accounting/Bom.Archive
+/Accounting/UtilityDbClient
+/Accounting/UtilityMigration
+/ApiDemo/ApiDemo.Web/Client/Properties
+/ApiDemo/ApiDemo.Web/Client/wwwroot/appsettings.json
+/ApiDemo/ApiDemo.Web/Server/Properties
+/ApiDemo/ApiDemo.Web/Server/appsettings.Development.json
+/ApiDemo/ApiDemo.Web/Server/appsettings.json
+/ApiDemo/ApiDemo.Web/Shared
+/ApiDemo/DemoApi.Debugger
+/IntuneAutomation

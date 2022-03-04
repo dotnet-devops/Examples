@@ -1,0 +1,55 @@
+﻿<MudTr>
+    <td colspan="15" class="bg-secondary" style="padding:15px">
+        <MudCard Class="mr-sm-auto mr-md-auto mx-lg-auto" Style="display:grid; max-width:900px; padding:15px" Elevation="3">
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">@Redacted?.Redacted?.Redacted</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText Typo="Typo.h4">Redacted Redacted: @Redacted?.Redacted</MudText>
+                <MudText Typo="Typo.h4">Redacted Redacted: @Redacted</MudText>
+
+                <MudGrid>
+                    <MudItem xs="4" sm="12" md="12" lg="12">
+                        <MudNumericField Adornment="Adornment.Start"
+                                         AdornmentColor="Color.Success"
+                                         AdornmentIcon="@Icons.Filled.Money"
+                                         T="decimal"
+                                         @bind-Value="@revision.Redacted"
+                                         HideSpinButtons="true"
+                                         Variant="Variant.Outlined"
+                                         Label="Redacted" 
+                                         Immediate="true"/>
+                    </MudItem>
+                    <MudItem xs="12" sm="12" md="12" lg="12">
+                        <MudTextField Lines="3"
+                                      Adornment="Adornment.Start"
+                                      AdornmentColor="Color.Info"
+                                      @bind-Value="@revision.Redacted"
+                                      Variant="Variant.Outlined"
+                                      Label="Comment" />
+                    </MudItem>
+
+                    <MudItem xs="12" sm="12" md="12" lg="12">
+                        <MudExpansionPanels>
+                            <MudExpansionPanel Text="@($"Show Errors ({errors.Count})")" IsExpanded="expand">
+                                @foreach (var error in errors)
+                                {
+                                    <MudText Color="@Color.Error">@error</MudText>
+                                }
+                            </MudExpansionPanel>
+                        </MudExpansionPanels>
+                    </MudItem>
+                </MudGrid>
+                <MudSpacer />
+                
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton EndIcon="@Icons.Rounded.CheckCircle"
+                            Variant="Variant.Filled"
+                            OnClick="Submit">Submit</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </td>
+</MudTr>

@@ -1,0 +1,199 @@
+﻿@using UtilityAccrual.Shared.Definitions
+@using UtilityAccrual.Shared.Models
+@page "/ua/utilities"
+
+<div class="col-8">
+    @if (loading)
+    {
+        <MudText Typo="Typo.overline" Class="d-flex mx-auto col-lg-12 justify-content-center">@task</MudText>
+        <MudProgressLinear Color="Color.Secondary" Value="taskProgress" Min="0" Max="2" Class="mx-auto d-flex col-lg-8" Minimum="0" Maximum="2" />
+        <MudSpacer />
+        <br />
+        <br />
+    }
+
+    <MudTabs Outlined="true" Style="width:75vw; display:flex" Class="mx-auto">
+        <MudTabPanel Icon="@Icons.Material.Filled.Build">
+            <MudTable Loading="loading"
+                      LoadingProgressColor="Color.Secondary"
+                      Items="(segmentFilter == 3 ? utilities : utilities.Where(u => (int)u.Redacted == Redacted))"
+                      T="Utility"
+                      Striped="true"
+                      Virtualize="true"
+                      FixedHeader="true"
+                      Height="80vh"
+                      Bordered="true"
+                      Dense="true"
+                      Filter="new Func<Utility, bool>(FilterFunc)"
+                      FixedFooter="true"
+                      Hover="true">
+                <ToolBarContent>
+                    <MudText Typo="Typo.h5">Redacted</MudText>
+                    <MudSpacer />
+                    <MudTextField Immediate="true"
+                                  @bind-Value="searchString"
+                                  Placeholder="Redacted"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium"
+                                  Class="mt-0" Style="width:15vw"></MudTextField>
+                </ToolBarContent>
+                <ColGroup>
+                    <col />
+                    <col style="width: 0.01%" />
+                    <col style="width: 0.01%" />
+                    <col style="width: 0.01%" />
+                    <col style="width: 0.01%" />
+                    <col />
+                </ColGroup>
+                <HeaderContent>
+                    <MudTh></MudTh>
+                    <MudTh Style="@_table.HeaderSize()">Redacted</MudTh>
+                    <MudTh Style="@_table.HeaderSize()">Redacted Redacted</MudTh>
+                    <MudTh Style="@_table.HeaderSize()">Redacted Redacted</MudTh>
+                    <MudTh Style="@_table.HeaderSize()">Redacted</MudTh>
+                    <MudTh Style="@($"font-size: { _table.Size + 2 }px")">Redacted</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd Style="display:flex">
+
+                        <MudIconButton Variant="Variant.Filled" OnClick="@(() => Redacted = context.Redacted)" Style="@_table.FontSize()">
+                            <div class="oi oi-x" style="@(_table.FontSize() +  $";height:{ _table.Size }")" />
+                        </MudIconButton>
+                        @if (Redacted == context.Redacted)
+                        {
+                            <MudButton ButtonType="ButtonType.Button"
+                                       Color="Color.Warning"
+                                       StartIcon="@Icons.Filled.Warning"
+                                       IconColor="Color.Warning"
+                                       Style="margin-left:20px"
+                                       OnClick="(async () => await Archive(context.Redacted))">
+                                Archive
+                            </MudButton>
+                        }
+
+                    </MudTd>
+                    <MudTd class="col" DataLabel="Redacted" Style="width: 0.01%">
+                        <MudText Typo="Typo.body2" Style="@_table.FontSize()" Class="text-wrap">@context.Redacted</MudText>
+                    </MudTd>
+
+                    <MudTd class="col" DataLabel="Redacted Redacted" Style="width: 0.01%">
+                        <MudText Typo="Typo.body2" Style="@_table.FontSize()" Class="text-wrap">@context.Redacted</MudText>
+                    </MudTd>
+
+                    <MudTd class="col" DataLabel="Redacted Redacted" Style="width: 0.01%">
+                        <MudText Typo="Typo.body2" Style="@_table.FontSize()" Class="text-wrap">@context.Redacted</MudText>
+                    </MudTd>
+
+                    <MudTd class="col" DataLabel="Redacted" Style="width: 0.01%">
+                        <MudText Typo="Typo.body2" Style="@_table.FontSize()" Class="text-wrap">@context.Redacted</MudText>
+                    </MudTd>
+
+                    <MudTd class="col" DataLabel="Redacted"><MudText Typo="Typo.body2" Style="@(_table.FontSize())" Class="text-wrap">@context.Redacted</MudText></MudTd>
+                </RowTemplate>
+                <FooterContent>
+                    <MudTd colspan="20">
+                        <div class="col-lg-10">
+                            <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Warning" OnClick="_table.FontSmaller" Disabled="@(_table.Size == 5)" Style="display:inline-flex;margin-left:20px" />
+                            <MudProgressLinear Color="Color.Secondary" Value="_table.Size" Min="5" Max="18" Class="col-lg-6" Style="display:inline-flex" />
+                            <MudIconButton Icon="@Icons.Filled.Add" Color="Color.Success" OnClick="_table.FontBigger" Disabled="@(_table.Size == 18)" />
+                        </div>
+                        <div class="col-lg-10">
+                            <MudExpansionPanels Square="true" Elevation="1" Class="row" MultiExpansion="true">
+
+                                <div class="col-lg-8">
+                                    <MudExpansionPanel Dense="true" Text="Filters">
+                                        <MudSelect T="int" @bind-Value="Redacted" Variant="Variant.Outlined" Label="Filter by Redacted" Style="width:51px; display:inline-flex" Class="mb-3" Direction="Direction.Top">
+                                            <MudSelectItem T="int" Value="3">Redacted</MudSelectItem>
+                                            <MudSelectItem T="int" Value="0">Redacted</MudSelectItem>
+                                            <MudSelectItem T="int" Value="1">Redacted</MudSelectItem>
+                                            <MudSelectItem T="int" Value="2">Redacted</MudSelectItem>
+                                        </MudSelect>
+                                    </MudExpansionPanel>
+                                </div>
+
+                            </MudExpansionPanels>
+
+                        </div>
+                    </MudTd>
+                </FooterContent>
+            </MudTable>
+        </MudTabPanel>
+        <MudTabPanel Icon="@Icons.Material.Filled.History">
+            <MudTable Loading="loading"
+                      LoadingProgressColor="Color.Secondary"
+                      Items="archived"
+                      T="Redacted"
+                      Striped="true"
+                      Virtualize="true"
+                      FixedHeader="true"
+                      Height="80vh"
+                      Bordered="true"
+                      Dense="true"
+                      Filter="new Func<Utility, bool>(FilterFunc)"
+                      FixedFooter="true"
+                      Hover="true">
+                <ToolBarContent>
+                    <MudText Typo="Typo.h5">Redacted</MudText>
+                    <MudSpacer />
+                </ToolBarContent>
+                <ColGroup>
+                    <col />
+                    <col style="width: 0.01%" />
+                    <col style="width: 0.01%" />
+                    <col style="width: 0.01%" />
+                    <col style="width: 0.01%" />
+                    <col class="col" />
+                </ColGroup>
+                <HeaderContent>
+                    <MudTh></MudTh>
+                    <MudTh Style="@_table.HeaderSize()">Redacted</MudTh>
+                    <MudTh Style="@_table.HeaderSize()">Redacted Redacted</MudTh>
+                    <MudTh Style="@_table.HeaderSize()">Redacted Redacted</MudTh>
+                    <MudTh Style="@_table.HeaderSize()">Redacted</MudTh>
+                    <MudTh Style="@($"font-size: { _table.Size + 2 }px")">Redacted</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd Style="display:flex">
+
+                        <MudIconButton Variant="Variant.Filled" OnClick="@(() => Redacted = context.Redacted)" Style="@_table.FontSize()">
+                            <div class="oi oi-action-undo" style="@(_table.FontSize() +  $";height:{ _table.Size }")" />
+                        </MudIconButton>
+                        @if (SelectedUtility == context.Redacted)
+                        {
+                            <MudButton ButtonType="ButtonType.Button"
+                                       Color="Color.Success"
+                                       StartIcon="@Icons.Filled.RestoreFromTrash"
+                                       IconColor="Color.Success"
+                                       Style="margin-left:20px"
+                                       OnClick="(async () => await Unarchive(context.Redacted))">
+                                Archive
+                            </MudButton>
+                        }
+
+                    </MudTd>
+                    <MudTd class="col" DataLabel="Redacted" Style="width: 0.01%">
+                        <MudText Typo="Typo.body2" Style="@_table.FontSize()" Class="text-wrap">@context.Redacted</MudText>
+                    </MudTd>
+
+                    <MudTd class="col" DataLabel="Redacted Redacted" Style="width: 0.01%">
+                        <MudText Typo="Typo.body2" Style="@_table.FontSize()" Class="text-wrap">@context.Redacted</MudText>
+                    </MudTd>
+
+                    <MudTd class="col" DataLabel="Redacted Redacted" Style="width: 0.01%">
+                        <MudText Typo="Typo.body2" Style="@_table.FontSize()" Class="text-wrap">@context.Redacted</MudText>
+                    </MudTd>
+
+                    <MudTd class="col" DataLabel="Redacted" Style="width: 0.01%">
+                        <MudText Typo="Typo.body2" Style="@_table.FontSize()" Class="text-wrap">@context.Redacted</MudText>
+                    </MudTd>
+
+                    <MudTd class="col" DataLabel="Redacted"><MudText Typo="Typo.body2" Style="@(_table.FontSize())" Class="text-wrap">@context.Redacted</MudText></MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudTabPanel>
+    </MudTabs>
+
+
+
+</div>

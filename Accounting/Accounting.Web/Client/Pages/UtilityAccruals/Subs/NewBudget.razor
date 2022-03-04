@@ -1,0 +1,42 @@
+﻿<MudCard Outlined="true" Style="padding:25px; max-height:80vh" Square="true">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h5">@Redacted</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent Style="display:inline-flex; max-width:300px">
+        <EditForm Model="Budget" OnValidSubmit="Apply">
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+            <MudNumericField T="decimal" HideSpinButtons="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.AttachMoney" AdornmentColor="Color.Success" Variant="Variant.Outlined" Margin="Margin.Dense" Label="Redacted" @bind-Value="Budget.Redacted" Immediate="true" />
+        </EditForm>
+    </MudCardContent>
+    <MudCardActions Style="justify-content:center">
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Info"
+                   OnClick="Apply"
+                   Style="margin:10px">Submit</MudButton>
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Warning"
+                   OnClick="Cancel"
+                   Style="margin:10px">Cancel</MudButton>
+    </MudCardActions>
+</MudCard>
+<br />
+<MudExpansionPanels Class="mb-3" Style="display:inline-flex; max-width:700px">
+    <MudExpansionPanel Text="@($"Show Errors ({errors.Count})")" @onclick="@(() => expanded = expanded == false)" IsExpanded="expanded">
+        @foreach (var error in errors)
+        {
+            <MudText Color="@Color.Error">@error</MudText>
+        }
+    </MudExpansionPanel>
+</MudExpansionPanels>

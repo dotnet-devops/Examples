@@ -1,0 +1,205 @@
+﻿@using UtilityAccrual.Shared.Definitions
+@using UtilityAccrual.Shared.Models.Display
+@page "/ua/budgets"
+
+<MudTable Loading="loading"
+          LoadingProgressColor="Color.Secondary"
+          Items="(Redacted == 3 ? Redacted : Redacted.Where(b => (int)b.Redacted.Redacted == Redacted))"
+          T="BudgetDisplayModel"
+          Striped="true"
+          Virtualize="true"
+          FixedHeader="true"
+          Height="80vh"
+          Bordered="true"
+          Dense="true"
+          Filter="new Func<BudgetDisplayModel, bool>(FilterFunc)"
+          FixedFooter="true"
+          Hover="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Redacted Redacted - @selectedYear</MudText>
+        <MudSpacer />
+        <MudSelect T="int" @bind-Value="RedactedFilter" Variant="Variant.Outlined" Label="Filter by Redacted" Style="max-width:400px; padding-right:50px" Class="ml-auto">
+            <MudSelectItem T="int" Value="3">Redacted</MudSelectItem>
+            <MudSelectItem T="int" Value="0">Redacted</MudSelectItem>
+            <MudSelectItem T="int" Value="1">Redacted</MudSelectItem>
+            <MudSelectItem T="int" Value="2">Redacted</MudSelectItem>
+        </MudSelect>
+        <MudTextField Immediate="true"
+                      @bind-Value="searchString"
+                      Placeholder="Search"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"
+                      Class="mt-0" />
+    </ToolBarContent>
+    <ColGroup>
+        @if (visibility["Redacted"])
+        {
+            <col style="max-width: 25px" />
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <col style="max-width: 25px" />
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <col style="max-width: 25px" />
+        }
+        @if (visibility["Redacted"])
+        {
+            <col style="max-width: 25px" />
+        }
+        @if (visibility["Redacted"])
+        {
+            <col style="max-width: 25px" />
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <col style="max-width: 25px" />
+        }
+        @foreach (var e in Enum.GetValues<Month>())
+        {
+            @if (visibility[e.ToString()])
+            {
+                <col style="max-width: 25px" />
+            }
+        }
+
+        @if (visibility["Redacted"])
+        {
+            <col style="max-width: 25px" />
+        }
+        @if (visibility["Redacted"])
+        {
+            <col style="max-width: 25px" />
+        }
+
+    </ColGroup>
+    <HeaderContent>
+        @if (visibility["Redacted"])
+        {
+            <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted.Redacted)">Redacted</MudTableSortLabel></MudTh>
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted.Redacted)">Redacted Redacted</MudTableSortLabel></MudTh>
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted.Redacted)">Redacted Redacted</MudTableSortLabel></MudTh>
+        }
+        @if (visibility["Redacted"])
+        {
+            <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted.Redacted)">Redacted</MudTableSortLabel></MudTh>
+        }
+        @if (visibility["Redacted"])
+        {
+            <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted.Redacted)">Redacted</MudTableSortLabel></MudTh>
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted)">Redacted Redacted</MudTableSortLabel></MudTh>
+        }
+        @foreach (var e in Enum.GetValues<Redacted>())
+        {
+            @if (visibility[e.ToString()])
+            {
+                <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted.Redacted)">@e.ToString()</MudTableSortLabel></MudTh>
+            }
+        }
+        @if (visibility["Redacted"])
+        {
+            <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted)">Redacted</MudTableSortLabel></MudTh>
+        }
+        @if (visibility["Redacted"])
+        {
+            <MudTh Style="@HeaderSize()"><MudTableSortLabel SortBy="new Func<BudgetDisplayModel, object>(x=>x.Redacted)">Redacted</MudTableSortLabel></MudTh>
+        }
+    </HeaderContent>
+    <RowTemplate>
+        @if (visibility["Redacted"])
+        {
+            <MudTd DataLabel="Redacted">
+                <MudText Typo="Typo.body2" Class="text-wrap" Style="@FontSize()">@context.Redacted?.Redacted</MudText>
+            </MudTd>
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <MudTd DataLabel="Redacted Redacted">
+                <MudText Typo="Typo.body2" Class="text-wrap" Style="@FontSize()">@context.Redacted?.Redacted</MudText>
+            </MudTd>
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <MudTd DataLabel="Redacted Redacted">
+                <MudText Typo="Typo.body2" Class="text-wrap" Style="@FontSize()">@context.Redacted?.Redacted</MudText>
+            </MudTd>
+        }
+        @if (visibility["Redacted"])
+        {
+            <MudTd DataLabel="Redacted">
+                <MudText Typo="Typo.body2" Class="text-wrap" Style="@FontSize()">@context.Redacted?.Redacted</MudText>
+            </MudTd>
+        }
+        @if (visibility["Redacted"])
+        {
+            <MudTd DataLabel="Redacted"><MudText Typo="Typo.body2" Class="text-wrap" Style="@FontSize()">@context.Redacted?.Redacted</MudText></MudTd>
+        }
+        @if (visibility["Redacted Redacted"])
+        {
+            <MudTd DataLabel="Redacted Redacted"><MudText Typo="Typo.body2" Class="text-wrap" Align="Align.Center" Style="@FontSize()">@context.Redacted</MudText></MudTd>
+        }
+        @foreach (var e in Enum.GetValues<Redacted>())
+        {
+            @if (visibility[e.ToString()])
+            {
+                <MudTd DataLabel="@(e.ToString())">
+                    <MudText Typo="Typo.body2" Class="text-wrap" Align="Align.Center" Style="@FontSize()">
+                        Redacted
+                    </MudText>
+                </MudTd>
+            }
+
+        }
+        @if (visibility["Redacted"])
+        {
+            <MudTd DataLabel="Redacted"><MudText Typo="Typo.body2" Class="text-wrap" Style="@FontSize()">@context.Redacted</MudText></MudTd>
+        }
+        @if (visibility["Redacted"])
+        {
+            <MudTd DataLabel="Redacted"><MudText Typo="Typo.body2" Class="text-wrap" Align="Align.Center" Style="@FontSize()">@context.Redacted</MudText></MudTd>
+        }
+
+    </RowTemplate>
+    <FooterContent>
+        <MudTd colspan="20">
+            <MudPaper Outlined="true">
+                <div class="col-lg-6">
+                    <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Warning" OnClick="FontSmaller" Disabled="@(size == 5)" Style="display:inline-flex;margin-left:20px" />
+                    <MudProgressLinear Color="Color.Secondary" Value="size" Min="5" Max="18" Class="col-lg-4" Style="display:inline-flex" />
+                    <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Success" OnClick="FontBigger" Disabled="@(size == 18)" />
+                </div>
+
+                <div class="col-6">
+                    <MudExpansionPanel Dense="true" Text="Visiblity">
+                        @foreach (KeyValuePair<string, bool> v in visibility)
+            {
+                            <MudSwitch T="bool" Label="@v.Key" CheckedChanged="(() => CheckClicked(v.Key))" Checked="v.Value" Color="Color.Success" />
+                        }
+                    </MudExpansionPanel>
+                </div>
+                <div class="col-3">
+                    <MudSelect T="int" Value="selectedYear" Variant="Variant.Outlined" Label="Redacted" ValueChanged="(async (e) => await SelectedYearChanged(e))" Direction="Direction.Top" Class="mb-3">
+                        @foreach (var year in years)
+            {
+                            <MudSelectItem Value="year">@year</MudSelectItem>
+                        }
+                    </MudSelect>
+                </div>
+                
+
+            </MudPaper>
+            
+        </MudTd>
+    </FooterContent>
+</MudTable>

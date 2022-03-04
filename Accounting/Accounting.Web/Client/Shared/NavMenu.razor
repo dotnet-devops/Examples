@@ -1,0 +1,38 @@
+﻿<AuthorizeView Policy="UserAccess">
+    <Authorized>
+        <MudNavMenu>
+            <MudNavLink Icon="@Icons.Filled.Policy" IconColor="Color.Default" Href="/ua/adjustments"><MudText Color="Color.Default">Adjustments</MudText></MudNavLink>
+            <MudNavLink Icon="@Icons.Filled.AccountBalance" IconColor="Color.Default" Href="/ua/budgets" Match="NavLinkMatch.All"><MudText Color="Color.Default">Budgets</MudText></MudNavLink>
+
+        </MudNavMenu>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Policy="AdminAccess">
+    <Authorized>
+        <MudDivider />
+        <MudNavGroup Title="System Management" Icon="@Icons.Filled.AdminPanelSettings">
+            <MudNavLink Icon="@Icons.Filled.Campaign" IconColor="Color.Default" Href="/ua/utilities"><MudText Color="Color.Default">Utilities</MudText></MudNavLink>
+            <MudNavLink Icon="@Icons.Filled.Add" IconColor="Color.Default" Href="/ua/newutility"><MudText Color="Color.Default">New Utility</MudText></MudNavLink>
+            <MudNavLink Icon="@Icons.Filled.People" IconColor="Color.Default" Href="/ua/editors"><MudText Color="Color.Default">Editors</MudText></MudNavLink>
+            <MudNavLink Icon="@Icons.Filled.TableChart" IconColor="Color.Default" Href="/ua/budgets/new/alt"><MudText Color="Color.Default">New Annual Budget</MudText></MudNavLink>
+            <MudNavLink Icon="@Icons.Filled.ModeEdit" IconColor="Color.Default" Href="/ua/budgets/modify"><MudText Color="Color.Default">Modify Budget</MudText></MudNavLink>
+        </MudNavGroup>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    bool expanded;
+
+
+    protected override void OnInitialized()
+    {
+        expanded = true;
+        base.OnInitialized();
+    }
+
+    void ExpanderClicked(bool e)
+    {
+        expanded = e;
+    }
+}

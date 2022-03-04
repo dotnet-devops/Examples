@@ -1,0 +1,40 @@
+﻿@using UtilityAccrual.Shared.Definitions
+@page "/ua/newutility"
+
+<div style="max-width:400px">
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h5">Redacted Redacted</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            <EditForm Model="utility" OnValidSubmit="Submit">
+                <MudNumericField Label="Redacted Redacted" @bind-Value="utility.Redacted" />
+                <MudTextField Label="Redacted" @bind-Value="utility.Redacted" />
+                <MudNumericField Label="Redacted Redacted" @bind-Value="utility.Redacted" />
+                <MudNumericField Label="Redacted Redacted" @bind-Value="utility.Redacted" />
+                <MudSelect T="Redacted" 
+                           Value="utility.Redacted" 
+                           Variant="Variant.Outlined" 
+                           OffsetY="true" 
+                           Label="Segment">
+                    @foreach (var e in Enum.GetValues<Redacted>())
+                    {
+                        <MudSelectItem Value="e" >@e</MudSelectItem>
+                    }
+                </MudSelect>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Info" Class="ml-auto">Submit</MudButton>
+                </MudCardActions>
+            </EditForm>
+        </MudCardContent>
+    </MudCard>
+    <br />
+    <MudExpansionPanels>
+        <MudExpansionPanel Text="@($"Show Errors ({errors.Count})")">
+            @foreach (var error in errors)
+            {
+                <MudText Color="@Color.Error">@error</MudText>
+            }
+        </MudExpansionPanel>
+    </MudExpansionPanels>
+</div>

@@ -1,0 +1,33 @@
+﻿@page "/ua/budgets/modify" 
+@using UtilityAccrual.Shared.Models
+@using UtilityAccrual.Shared.Definitions
+<MudPaper Outlined="true" Class="justify-content-center">
+    <MudSelect T="Utility" Value="selectedUtility">
+        @foreach (var utility in utilities)
+        {
+            <MudSelectItem Value="utility">@utility.Redacted</MudSelectItem>
+        }
+    </MudSelect>
+    <MudSelect T="int" Value="selectedYear" Variant="Variant.Outlined" Label="Redacted" ValueChanged="SelectedYearChanged">
+        @foreach (var year in years)
+        {
+            <MudSelectItem Value="year">@year</MudSelectItem>
+        }
+    </MudSelect>
+    <MudSelect T="Redacted" Value="selectedMonth" Variant="Variant.Outlined" Label="Redacted" ValueChanged="UpdateAmount">
+        @foreach (var month in Enum.GetValues<Redacted>())
+        {
+            <MudSelectItem Value="month">@month.ToString()</MudSelectItem>
+        }
+    </MudSelect>
+    <MudNumericField T="decimal" 
+                     HideSpinButtons="true" 
+                     Adornment="Adornment.Start" 
+                     AdornmentIcon="@Icons.Material.Filled.AttachMoney" 
+                     AdornmentColor="Color.Success" 
+                     Variant="Variant.Outlined" 
+                     Margin="Margin.Dense" 
+                     Label="Redacted" 
+                     @bind-Value="Redacted" 
+                     Immediate="true" />
+</MudPaper>

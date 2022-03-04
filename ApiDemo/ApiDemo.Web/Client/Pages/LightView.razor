@@ -1,0 +1,160 @@
+﻿@inject HttpClient _http;
+@inject GraphClientFactory graph
+@inject AuthenticationStateProvider Auth
+@page "/lights"
+@using System.Net
+@using System.Net.Http
+@using ApiDemo.Library.Graph
+
+<MudPaper Elevation="3" Style="max-height:50vh">
+    <MudContainer Style="padding:15px" >
+
+        <MudText Typo="Typo.h6">Power</MudText>
+        <MudButtonGroup OverrideStyles="false">
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Success" OnClick="@(async () => await On())">On</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Warning" OnClick="@(async () => await Off())">Off</MudButton>
+        </MudButtonGroup>
+        <br />
+        <br />
+        <MudText Typo="Typo.h6">Authorization Required</MudText>
+        <MudButtonGroup OverrideStyles="false">
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Info" OnClick="@(async () => await ChangeAuthorizedColor("blue"))">Blue</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Info" OnClick="@(async () => await ChangeAuthorizedColor("cyan"))">Cyan</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Success" OnClick="@(async () => await ChangeAuthorizedColor("green"))">Green</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Secondary" OnClick="@(async () => await ChangeAuthorizedColor("magenta"))">Magenta</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Warning" OnClick="@(async () => await ChangeAuthorizedColor("orangered"))">Orange Red</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Error" OnClick="@(async () => await ChangeAuthorizedColor("red"))">Red</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Surface" OnClick="@(async () => await ChangeAuthorizedColor("white"))">White</MudButton>
+        </MudButtonGroup>
+        <br />
+        <br />
+        <MudText Typo="Typo.h6">Open</MudText>
+        <MudButtonGroup OverrideStyles="false">
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Info" OnClick="@(async () => await ChangeColor("blue"))">Blue</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Info" OnClick="@(async () => await ChangeColor("cyan"))">Cyan</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Success" OnClick="@(async () => await ChangeColor("green"))">Green</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Secondary" OnClick="@(async () => await ChangeColor("magenta"))">Magenta</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Warning" OnClick="@(async () => await ChangeColor("orangered"))">Orange Red</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Error" OnClick="@(async () => await ChangeColor("red"))">Red</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Button" Color="Color.Surface" OnClick="@(async () => await ChangeColor("white"))">White</MudButton>
+        </MudButtonGroup>
+    </MudContainer>
+
+    
+</MudPaper>
+<br />
+<br />
+<MudPaper Elevation="3" Style="max-height:25vh">
+    <MudContainer Style="max-height:25vh; overflow-y:auto">
+        <ul class="s" style="padding:15px">
+            @foreach (var r in responses.OrderByDescending(x => x.Id))
+            {
+                <li style="margin:15px">@r.Time<span style="@(r.Style)">@r.ResponseCode</span>@r.Message</li>
+            }
+        </ul>
+    </MudContainer>
+</MudPaper>
+
+@code
+{
+    List<LightResponse> responses = new();
+    protected override async Task OnInitializedAsync()
+    {
+        //await Task.Delay(1000);
+        try
+        {
+            var auth = await Auth.GetAuthenticationStateAsync();
+            if (auth.User?.Identity.Name != null)
+            {
+                await graph.LoadHttpClient();
+                _http.DefaultRequestHeaders.Authorization = graph?.Http?.DefaultRequestHeaders?.Authorization;
+            }    
+        }
+        finally
+        {
+             _http.BaseAddress = new Uri("https://localhost:7066/");
+        }
+
+        responses = new();
+    }
+
+    async Task Off()
+    {
+        var response = await _http.PutAsync("api/light/power/off", null);
+        LightResponse lr = new();
+        lr.Id = responses.Count;
+        lr.Message = await response.Content.ReadAsStringAsync();
+        lr.ResponseCode = $"{response.StatusCode.ToString()}: ";
+        lr.Style = response.StatusCode switch
+        {
+            HttpStatusCode.Accepted => "color: green",
+            HttpStatusCode.OK => "color: green",
+            HttpStatusCode.BadRequest => "color:orange",
+            HttpStatusCode.Unauthorized => "color:red",
+            _ => "color:orange"
+        };
+        responses.Add(lr);
+    }
+
+    async Task On()
+    {
+        var response = await _http.PutAsync("api/light/power/on", null);
+        LightResponse lr = new();
+        lr.Id = responses.Count;
+        lr.Message = await response.Content.ReadAsStringAsync();
+        lr.ResponseCode = $"{response.StatusCode.ToString()}: ";
+        lr.Style = response.StatusCode switch
+        {
+            HttpStatusCode.Accepted => "color: green",
+            HttpStatusCode.OK => "color: green",
+            HttpStatusCode.BadRequest => "color:orange",
+            HttpStatusCode.Unauthorized => "color:red",
+            _ => "color:orange"
+        };
+        responses.Add(lr);
+    }
+
+    async Task ChangeAuthorizedColor(string color)
+    {
+        HttpResponseMessage response;
+        try
+        {
+            response = await _http.PostAsync("api/light/ChangeColor/" + color, null);
+        }
+        catch
+        {
+            response =  await graph.Http.PostAsync("api/light/ChangeColor/" + color, null);
+        }
+        LightResponse lr = new();
+        lr.Id = responses.Count;
+        lr.Message = await response.Content.ReadAsStringAsync();
+        lr.ResponseCode = $"{response.StatusCode.ToString()}: ";
+        lr.Style = response.StatusCode switch
+        {
+            HttpStatusCode.Accepted => "color: green",
+            HttpStatusCode.OK => "color: green",
+            HttpStatusCode.BadRequest => "color:orange",
+            HttpStatusCode.Unauthorized => "color:red",
+            _ => "color:orange"
+        };
+        responses.Add(lr);
+    }
+
+    async Task ChangeColor(string color)
+    {
+        var response = await _http.PostAsync("api/light/" + color, null);
+        LightResponse lr = new();
+        lr.Id = responses.Count;
+        lr.Message = await response.Content.ReadAsStringAsync();
+        lr.ResponseCode = $"{response.StatusCode.ToString()}: ";
+        lr.Style = response.StatusCode switch
+        {
+            HttpStatusCode.Accepted => "color: green",
+            HttpStatusCode.OK => "color: green",
+            HttpStatusCode.BadRequest => "color:orange",
+            HttpStatusCode.Unauthorized => "color:red",
+            _ => "color:orange"
+        };
+        responses.Add(lr);
+    }
+}

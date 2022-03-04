@@ -1,0 +1,41 @@
+﻿@page "/ua/budgets/new"
+
+<MudPaper Outlined="false" Class="col-6" Style="text-align: center; padding: 10px">
+    <MudText Typo="Typo.h4" Class="justify-content-center">Missing Budgets</MudText>
+    <MudProgressLinear Value="progress" Min="0" Max="5" Color="Color.Info" Class="mt-3 mb-3" Style="@(progress == 5 ? "visibility:hidden" : "visibility:visible")" />
+    <MudTabs Position="Position.Left"
+             Outlined="true"
+             ApplyEffectsToContainer="true"
+             PanelClass="col-12"
+             Style="display:flex">
+        @foreach (int year in yearRange.OrderBy(x => x))
+        {
+            <MudTabPanel Text="@year.ToString()"
+                         OnClick="async () => await SelectedYearChanged(year)"
+                         >
+                <div class="col-9">
+                    <MudTabs Position="Position.Top"
+                             Outlined="true"
+                             Rounded="false"
+                             AlwaysShowScrollButtons="true"
+                             Color="@Color.Info"
+                             @ref="tabs">
+                        @if (missing.Any())
+                        {
+                            foreach (var kvp in missing)
+                            {
+                                <MudTabPanel Class="justify-content-center" Style="display:flex" Text="@kvp.Key.Redacted" OnClick="() => Activate(missing.Keys.ToList().IndexOf(kvp.Key))">
+                                    <NewBudget Budget="kvp.Value"
+                                               ApplyChanges="BudgetUpdated"
+                                               UtilityDescription="@kvp.Key.Redacted" />
+                                </MudTabPanel>
+                            }
+                        }
+                    </MudTabs>
+                </div>
+
+            </MudTabPanel>
+        }
+    </MudTabs>
+</MudPaper>
+

@@ -1,0 +1,47 @@
+﻿@if (AdjustmentRevisions.Any())
+{
+    <MudTr>
+        <td colspan="15" style="padding:10px; max-width:400px" class="bg-secondary">
+            <MudCard Elevation="3" Outlined="true" Class="mx-auto" Style="max-width:750px">
+                <MudCardContent Class="pa-0">
+                    <MudTable Items="@AdjustmentRevisions.OrderByDescending(a => a.Redacted.Redacted())" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="0" Bordered="true" Virtualize="true">
+                        <ColGroup>
+                            <col />
+                            <col />
+                            <col />
+                            <col style="max-width:35px" />
+                            <col style="max-width:50px" />
+                        </ColGroup>
+                        <HeaderContent>
+                            <MudTh>Redacted</MudTh>
+                            <MudTh>Redacted</MudTh>
+                            <MudTh>Redacted</MudTh>
+                            <MudTh>Redacted</MudTh>
+                            <MudTh>Redacted Redacted</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd DataLabel="Redacted">@context.Redacted.ToString("C")</MudTd>
+                            <MudTd DataLabel="Redacted">@context.Redacted</MudTd>
+                            <MudTd DataLabel="Redacted">@context.Redacted</MudTd>
+                            <MudTd DataLabel="Redacted">@context.Redacted</MudTd>
+                            <MudTd DataLabel="Redacted Redacted">@context.Redacted.ToLocalTime()</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+        </td>
+    </MudTr>
+    
+}
+else
+{
+    <MudTr>
+        <td colspan="15" style="padding:10px">
+            <MudPaper Elevation="3">
+                <MudSpacer />
+                <MudText Typo="Typo.h6" Color="Color.Info" Class="mx-auto" Style="font-style:italic">Empty</MudText>
+                <MudSpacer />
+            </MudPaper>
+        </td>
+    </MudTr>
+}

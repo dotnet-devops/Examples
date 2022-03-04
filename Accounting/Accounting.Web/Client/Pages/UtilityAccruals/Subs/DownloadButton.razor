@@ -1,0 +1,40 @@
+﻿@using BlazorDownloadFile
+@inject IJSRuntime _js
+@inject HttpClient _http
+@inject IBlazorDownloadFileService DownloadService
+
+<div style="height:25px; width:25px; margin:10px">
+    @if (loading)
+    {
+        <MudProgressCircular Indeterminate="true" Color="Color.Primary" Size="Size.Small" />
+    }
+    else
+    {
+        <MudIconButton Icon="@Icons.Filled.FileDownload" Color="Color.Info" OnClick="Download" Size="Size.Small"  Variant="Variant.Outlined" DisableRipple="true"> </MudIconButton>
+    }
+
+
+</div>
+@code{
+    [CascadingParameter(Name = "Month")]
+    private int Month { get; set; }
+    [CascadingParameter(Name = "Year")]
+    private int Year { get; set; }
+
+    bool loading;
+    async Task Download()
+    {
+        if (loading)
+            return;
+
+
+        loading = true;
+        StateHasChanged();
+
+        var response = await _http.GetAsync($"api/export/{Month}/{Year}");
+        var bytes = await response.Content.ReadAsByteArrayAsync();
+        await DownloadService.DownloadFile($"Adjustments-{Month:00}-{Year}.xlsx", bytes, "application/vnd.openxmlformats - officedocument.spreadsheetml.sheet");
+        loading = false;
+        StateHasChanged();
+    }
+}

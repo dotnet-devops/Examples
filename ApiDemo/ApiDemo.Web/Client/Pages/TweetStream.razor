@@ -1,0 +1,26 @@
+﻿@page "/tweets"
+
+<div style="position:relative; justify-content:center">
+    <MudText Typo="Typo.h6" Color="@GetConnectionColor()">@GetConnectionString()</MudText>
+</div>
+
+@foreach (var tweet in tweets.OrderByDescending(x => x.Data.CreatedAt))
+{
+    <br />
+    <MudCard Style="max-width:350px">
+        <MudCardHeader Class="bg-dark" Style="border-bottom-color:white; border-bottom-width:thick">
+            <div style="display:contents">
+                <img height="48px" width="48px" src="@tweet.Includes.Users[0].ProfileImageUrl" class="nav-profile-photo rounded-circle align-self-center mr-2" />
+                <div style="display:block">
+                     <MudText Class="mr-auto" Style="margin-left:15px" Typo="Typo.h6" Color="Color.Secondary">@(tweet.Includes.Users[0].Username)</MudText>
+                    <MudText Typo="Typo.caption" Color="Color.Surface" Style="margin-left:15px">@(tweet.Data.CreatedAt.ToLocalTime())</MudText>
+                </div>
+            </div>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudText Typo="Typo.body2" Color="Color.Info">@(tweet.Data.Text)</MudText>
+        </MudCardContent>
+    </MudCard>  
+    <br />
+}
+

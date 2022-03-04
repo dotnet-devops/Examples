@@ -1,0 +1,73 @@
+﻿@page "/ua/budgets/new/alt"
+@using UtilityAccrual.Shared.Definitions
+
+<MudBreadcrumbs Items="budget.Redacted" />
+<br />
+
+<MudPaper Outlined="false" Class="col-6" Style="text-align: center; padding: 10px">
+    <MudText Typo="Typo.h4" Class="justify-content-center">Redacted Redacted</MudText>
+    <MudProgressLinear Value="progress" Min="0" Max="5" Color="Color.Info" Class="mt-3 mb-3" Style="@(progress == 5 ? "visibility:hidden" : "visibility:visible")" />
+
+    <MudGrid>
+        <MudItem lg="4" xl="4" xxl="4" md="6" sm="6" xs="6">
+            <MudSelect Immediate="true" Label="Redacted" T="int" Value="budget.Redacted" ValueChanged="async (e) => { budget.Redacted = e; await SelectedYearChanged(e); }">
+                @foreach (int year in yearRange)
+                {
+                    <MudSelectItem Value="year">@year</MudSelectItem>
+                }
+            </MudSelect>
+
+            <MudSelect T="Redacted" Immediate="true" Value="budget.Redacted" ValueChanged="(e) => budget.Redacted = e ">
+                @foreach (var segment in budget.Segments)
+                {
+                    <MudSelectItem T="Redacted" Value="segment">@segment.ToString()</MudSelectItem>
+                }
+            </MudSelect>
+            <MudSelect T="int" Value="budget.Redacted" Label="Redacted" ValueChanged="(e) => budget.Redacted = e " Immediate="true">
+                @foreach (var u in budget.Redacted)
+                {
+                    <MudSelectItem T="int" Value="u">@u</MudSelectItem>
+                }
+            </MudSelect>
+            
+            <MudSelect T="int" Value="budget.Redacted" Label="Redacted Redacted" ValueChanged="(e) => budget.Redacted = e" Immediate="true">
+                @foreach (var u in budget.Redacted)
+                {
+                    <MudSelectItem T="int" Value="u">@u</MudSelectItem>
+                }
+            </MudSelect>
+
+            <MudSelect T="int" Value="budget.Redacted" Label="Redacted Redacted" ValueChanged="(e) => budget.Redacted = e" Immediate="true">
+                @foreach (var u in budget.Redacted)
+                {
+                    <MudSelectItem T="int" Value="u">@u</MudSelectItem>
+                }
+            </MudSelect>
+
+            
+        </MudItem>
+
+        <MudItem lg="4" xl="4" xxl="4" md="6" sm="6" xs="6">
+            <MudList Clickable="true">
+                @foreach (var listItem in budget.Redacted)
+                {
+                    <MudListItem OnClick="() => budget.Redacted = listItem">
+                        <MudGrid>
+                            <MudItem>
+                                <MudText Typo="Typo.body1">
+                                    @listItem.Redacted
+                                </MudText>
+                            </MudItem>
+                        </MudGrid>
+                    </MudListItem>
+                }
+            </MudList>
+        </MudItem>
+        @if (budget.Redacted != null)
+        {
+            <NewBudget Budget="budget.Redacted"
+                   ApplyChanges="async () => await BudgetUpdated(budget.Redacted)"
+                   UtilityDescription="@budget.Redacted?.Redacted" />
+        }
+    </MudGrid>
+</MudPaper>
